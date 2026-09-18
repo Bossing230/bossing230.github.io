@@ -1005,10 +1005,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .dropdown-toggle[aria-expanded="true"] {
   color: var(--text);
 }
-.dropdown-toggle .caret {
-  font-size: 0.62rem;
-  color: var(--accent);
+.dropdown-toggle .dropdown-caret {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: inherit;
   transition: transform var(--fast) var(--ease);
+}
+.dropdown-toggle .dropdown-caret.rotated {
+  transform: rotate(180deg);
 }
 
 /* Hidden by default — JS toggles the ".show" class */
@@ -1030,11 +1035,6 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 /* Shown when JS adds the "show" class via classList.toggle() */
 .dropdown-menu.show {
   display: block;
-  animation: dropdownFade 0.18s var(--ease);
-}
-@keyframes dropdownFade {
-  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 .dropdown-menu li { list-style: none; }

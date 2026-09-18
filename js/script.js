@@ -59,16 +59,16 @@ function initDropdowns() {
   function closeDropdown(dropdown) {
     const menu = dropdown.querySelector(".dropdown-menu");
     const button = dropdown.querySelector(".dropdown-toggle");
-    const caret = dropdown.querySelector(".caret");
+    const caret = dropdown.querySelector(".dropdown-caret");
     if (menu) menu.classList.remove("show");
     if (button) button.setAttribute("aria-expanded", "false");
-    if (caret) caret.textContent = "▼";
+    if (caret) caret.classList.remove("rotated");
   }
 
   dropdowns.forEach((dropdown) => {
     const dropdownButton = dropdown.querySelector(".dropdown-toggle");
     const dropdownMenu = dropdown.querySelector(".dropdown-menu");
-    const caret = dropdown.querySelector(".caret");
+    const caret = dropdown.querySelector(".dropdown-caret");
     if (!dropdownButton || !dropdownMenu) return;
 
     // Requirement 4: click the button to open/close the dropdown
@@ -79,8 +79,8 @@ function initDropdowns() {
       const isOpen = dropdownMenu.classList.toggle("show");
       dropdownButton.setAttribute("aria-expanded", String(isOpen));
 
-      // Bonus 2: swap the arrow direction based on open state
-      if (caret) caret.textContent = isOpen ? "▲" : "▼";
+      // Bonus 2: rotate the chevron based on open state
+      if (caret) caret.classList.toggle("rotated", isOpen);
 
       // Bonus 3: keep dropdowns independent — closing every other
       // open dropdown when a new one is opened, so only one shows at a time
