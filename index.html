@@ -23,6 +23,31 @@
     <nav class="nav-links" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
+
+      <!-- Dropdown 1: Services -->
+      <div class="dropdown">
+        <button class="dropdown-toggle" id="servicesBtn" aria-haspopup="true" aria-expanded="false">
+          Services <span class="caret">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="servicesMenu">
+          <li><a href="work.html">Web Development</a></li>
+          <li><a href="work.html">Mobile Development</a></li>
+          <li><a href="work.html">UI/UX Design</a></li>
+        </ul>
+      </div>
+
+      <!-- Dropdown 2: Projects (Bonus 3 - multiple independent dropdowns) -->
+      <div class="dropdown">
+        <button class="dropdown-toggle" id="projectsBtn" aria-haspopup="true" aria-expanded="false">
+          Projects <span class="caret">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="projectsMenu">
+          <li><a href="work.html">Restaurant Management System</a></li>
+          <li><a href="work.html">Food Delivery Application</a></li>
+          <li><a href="work.html">Personal Portfolio Website</a></li>
+        </ul>
+      </div>
+
       <a href="work.html">Work</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -39,6 +64,31 @@
   <ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
+
+    <!-- Dropdown 1: Services (mobile accordion version) -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="servicesBtnMobile" aria-haspopup="true" aria-expanded="false">
+        Services <span class="caret">▼</span>
+      </button>
+      <ul class="dropdown-menu" id="servicesMenuMobile">
+        <li><a href="work.html">Web Development</a></li>
+        <li><a href="work.html">Mobile Development</a></li>
+        <li><a href="work.html">UI/UX Design</a></li>
+      </ul>
+    </li>
+
+    <!-- Dropdown 2: Projects (mobile accordion version) -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="projectsBtnMobile" aria-haspopup="true" aria-expanded="false">
+        Projects <span class="caret">▼</span>
+      </button>
+      <ul class="dropdown-menu" id="projectsMenuMobile">
+        <li><a href="work.html">Restaurant Management System</a></li>
+        <li><a href="work.html">Food Delivery Application</a></li>
+        <li><a href="work.html">Personal Portfolio Website</a></li>
+      </ul>
+    </li>
+
     <li><a href="work.html">Work</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -63,8 +113,8 @@
         </h1>
         <p class="hero-lede">
           I'm a passionate web &amp; mobile developer who loves creating modern, user-friendly
-          digital experiences — from database-driven systems to clean, responsive interfaces.
-          Currently studying IT and building real things along the way.
+          digital experiences from database-driven systems to clean, responsive interfaces.
+          Currently studying Computer Science and building real things along the way.
         </p>
 
         <div class="hero-cta">
@@ -113,7 +163,7 @@
       <div class="section-head reveal">
         <p>WHAT I DO</p>
         <h2>I build software that people actually enjoy using.</h2>
-        <p>A snapshot of where my skills currently sit — see the full breakdown, timeline, and story on the About page.</p>
+        <p>A snapshot of where my skills currently sit see the full breakdown, timeline, and story on the About page.</p>
       </div>
 
       <div class="philosophy-strip">
@@ -142,7 +192,7 @@
       <div class="section-head reveal">
         <p>SELECTED WORK</p>
         <h2>A few things I've built recently.</h2>
-        <p>From restaurant systems to food-delivery apps — see the full case list on the Work page.</p>
+        <p>From restaurant systems to food delivery apps see the full case list on the Work page.</p>
       </div>
 
       <div class="projects-grid">

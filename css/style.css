@@ -246,8 +246,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   transition: color var(--fast) var(--ease);
 }
 .nav-links a:hover { color: var(--text); }
-.nav-links a.active { color: #fff; }
-.nav-links a.active::before {
+.nav-links > a.active { color: #fff; }
+.nav-links > a.active::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -898,6 +898,20 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .success-msg.show { display: flex; animation: pop 0.4s var(--ease); }
 @keyframes pop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
+.error-msg {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  color: var(--danger);
+  margin-top: 20px;
+  font-size: 0.92rem;
+}
+.error-msg.show { display: flex; animation: pop 0.4s var(--ease); }
+
 @media (max-width: 860px) {
   .contact-grid { grid-template-columns: 1fr; }
   .two-col { grid-template-columns: 1fr; }
@@ -958,3 +972,136 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-weight: 600;
 }
 .skip-link:focus { left: 20px; top: 20px; }
+
+/* ==========================================================================
+   Dropdown Navigation Menu (Activity requirement)
+   ========================================================================== */
+
+/* Parent nav item wrapper — needs relative positioning so the
+   dropdown menu can be placed absolutely right below it */
+.dropdown {
+  position: relative;
+}
+
+/* The clickable button that opens/closes the dropdown.
+   Styled to look exactly like the existing .nav-links a items
+   so it doesn't look "bolted on" to the pill navbar. */
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--fast) var(--ease);
+}
+.dropdown-toggle:hover,
+.dropdown-toggle[aria-expanded="true"] {
+  color: var(--text);
+}
+.dropdown-toggle .caret {
+  font-size: 0.62rem;
+  color: var(--accent);
+  transition: transform var(--fast) var(--ease);
+}
+
+/* Hidden by default — JS toggles the ".show" class */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 230px;
+  padding: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.55);
+  z-index: 1050;
+}
+
+/* Shown when JS adds the "show" class via classList.toggle() */
+.dropdown-menu.show {
+  display: block;
+  animation: dropdownFade 0.18s var(--ease);
+}
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.dropdown-menu li { list-style: none; }
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.dropdown-menu li a:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Responsive: inside the off-canvas mobile menu, the dropdown becomes
+   an inline accordion instead of a floating panel, so it matches the
+   rest of the sidebar's look and doesn't get clipped off-screen. */
+@media (max-width: 860px) {
+  .mobile-menu .dropdown {
+    width: 100%;
+  }
+  .mobile-menu .dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f5f5f5;
+  }
+  .mobile-menu .dropdown-toggle:hover,
+  .mobile-menu .dropdown-toggle[aria-expanded="true"] {
+    color: #fff;
+  }
+  .mobile-menu .dropdown-menu {
+    display: none;
+    position: static;
+    transform: none;
+    min-width: 0;
+    width: 100%;
+    margin-top: 16px;
+    padding: 0;
+    padding-left: 14px;
+    background: transparent;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .mobile-menu .dropdown-menu.show {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    animation: none;
+  }
+  .mobile-menu .dropdown-menu li a {
+    padding: 8px 0 8px 14px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #cfd2e6;
+  }
+  .mobile-menu .dropdown-menu li a:hover {
+    background: none;
+    color: #fff;
+    transform: translateX(4px);
+  }
+}

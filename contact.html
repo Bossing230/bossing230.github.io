@@ -21,6 +21,31 @@
     <nav class="nav-links" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
+
+      <!-- Dropdown 1: Services -->
+      <div class="dropdown">
+        <button class="dropdown-toggle" id="servicesBtn" aria-haspopup="true" aria-expanded="false">
+          Services <span class="caret">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="servicesMenu">
+          <li><a href="work.html">Web Development</a></li>
+          <li><a href="work.html">Mobile Development</a></li>
+          <li><a href="work.html">UI/UX Design</a></li>
+        </ul>
+      </div>
+
+      <!-- Dropdown 2: Projects (Bonus 3 - multiple independent dropdowns) -->
+      <div class="dropdown">
+        <button class="dropdown-toggle" id="projectsBtn" aria-haspopup="true" aria-expanded="false">
+          Projects <span class="caret">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="projectsMenu">
+          <li><a href="work.html">Restaurant Management System</a></li>
+          <li><a href="work.html">Food Delivery Application</a></li>
+          <li><a href="work.html">Personal Portfolio Website</a></li>
+        </ul>
+      </div>
+
       <a href="work.html">Work</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -36,6 +61,31 @@
   <ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
+
+    <!-- Dropdown 1: Services (mobile accordion version) -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="servicesBtnMobile" aria-haspopup="true" aria-expanded="false">
+        Services <span class="caret">▼</span>
+      </button>
+      <ul class="dropdown-menu" id="servicesMenuMobile">
+        <li><a href="work.html">Web Development</a></li>
+        <li><a href="work.html">Mobile Development</a></li>
+        <li><a href="work.html">UI/UX Design</a></li>
+      </ul>
+    </li>
+
+    <!-- Dropdown 2: Projects (mobile accordion version) -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="projectsBtnMobile" aria-haspopup="true" aria-expanded="false">
+        Projects <span class="caret">▼</span>
+      </button>
+      <ul class="dropdown-menu" id="projectsMenuMobile">
+        <li><a href="work.html">Restaurant Management System</a></li>
+        <li><a href="work.html">Food Delivery Application</a></li>
+        <li><a href="work.html">Personal Portfolio Website</a></li>
+      </ul>
+    </li>
+
     <li><a href="work.html">Work</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -46,7 +96,7 @@
     <div class="container">
       <p>GET IN TOUCH</p>
       <h1>Let's Work Together</h1>
-      <p>Have an internship opening, a project idea, or just want to say hi? My inbox is open — I try to reply within a day or two.</p>
+      <p>Have an internship opening, a project idea, or just want to say hi? My inbox is open I try to reply within a day or two.</p>
     </div>
   </section>
 
@@ -55,7 +105,7 @@
       <div class="contact-grid">
         <div class="reveal">
           <h2 style="font-size:1.6rem; margin-bottom:10px;">Contact information</h2>
-          <p class="muted">Prefer email or a quick message on social — whatever's easiest for you.</p>
+          <p class="muted">Prefer email or a quick message on social whatever's easiest for you.</p>
 
           <div class="contact-info-list">
             <div class="info-card card">
@@ -91,9 +141,19 @@
 
         <div class="form-card card reveal reveal-delay-1">
           <h2 style="font-size:1.5rem; margin-bottom:6px;">Send a message</h2>
-          <p class="muted" style="margin-bottom:26px;">Fill in the form below — I'll get back to you by email.</p>
+          <p class="muted" style="margin-bottom:26px;">Fill in the form below I'll get back to you by email.</p>
 
-          <form id="contact-form" onsubmit="sendEmail(event)">
+          <!--
+            IMPORTANT: replace YOUR_FORM_ID below with the endpoint Formspree
+            gives you after you sign up at https://formspree.io (looks like
+            https://formspree.io/f/abcd1234). Submit the form once after
+            deploying so Formspree can send you the one-time confirmation
+            email to activate it.
+          -->
+          <form id="contact-form" action="https://formspree.io/f/xbgllrgk" method="POST">
+            <!-- honeypot field: real visitors never fill this in, bots often do -->
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
             <div class="two-col">
               <div class="field">
                 <label for="name">Full Name</label>
@@ -125,6 +185,11 @@
             <div class="success-msg" id="form-success">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>Thanks for reaching out! Your message has been sent — I'll reply soon.</span>
+            </div>
+
+            <div class="error-msg" id="form-error">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span>Something went wrong sending your message. Please try again, or email me directly at mj300635@gmail.com.</span>
             </div>
           </form>
         </div>

@@ -4,6 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initMobileMenu();
+  initDropdowns();
   initScrollReveal();
   initTerminal();
   initSkillBars();
@@ -46,10 +47,71 @@ function initMobileMenu() {
   });
 }
 
+/* ---------- Dropdown navigation menus (Services / Projects) ----------
+   Works for every ".dropdown" on the page — the ones inside the desktop
+   pill navbar AND the ones inside the mobile off-canvas menu — so both
+   dropdowns (Bonus 3) and the mobile version (Bonus 4) share one piece
+   of logic instead of being wired up by hand for each. */
+function initDropdowns() {
+  const dropdowns = document.querySelectorAll(".dropdown");
+  if (!dropdowns.length) return;
+
+  function closeDropdown(dropdown) {
+    const menu = dropdown.querySelector(".dropdown-menu");
+    const button = dropdown.querySelector(".dropdown-toggle");
+    const caret = dropdown.querySelector(".caret");
+    if (menu) menu.classList.remove("show");
+    if (button) button.setAttribute("aria-expanded", "false");
+    if (caret) caret.textContent = "▼";
+  }
+
+  dropdowns.forEach((dropdown) => {
+    const dropdownButton = dropdown.querySelector(".dropdown-toggle");
+    const dropdownMenu = dropdown.querySelector(".dropdown-menu");
+    const caret = dropdown.querySelector(".caret");
+    if (!dropdownButton || !dropdownMenu) return;
+
+    // Requirement 4: click the button to open/close the dropdown
+    dropdownButton.addEventListener("click", (event) => {
+      event.stopPropagation(); // don't let the outside-click handler fire too
+
+      // Requirement 5: classList.toggle() shows/hides the menu
+      const isOpen = dropdownMenu.classList.toggle("show");
+      dropdownButton.setAttribute("aria-expanded", String(isOpen));
+
+      // Bonus 2: swap the arrow direction based on open state
+      if (caret) caret.textContent = isOpen ? "▲" : "▼";
+
+      // Bonus 3: keep dropdowns independent — closing every other
+      // open dropdown when a new one is opened, so only one shows at a time
+      dropdowns.forEach((other) => {
+        if (other !== dropdown) closeDropdown(other);
+      });
+    });
+
+    // Close this dropdown once a menu item is picked
+    dropdownMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeDropdown(dropdown));
+    });
+  });
+
+  // Bonus 1: clicking anywhere outside an open dropdown closes it
+  document.addEventListener("click", (event) => {
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(event.target)) closeDropdown(dropdown);
+    });
+  });
+}
+
 /* ---------- Highlight active page in nav ---------- */
 function setActiveNavLink() {
   const path = window.location.pathname.split("/").pop() || "index.html";
-  document.querySelectorAll(".nav-links a, .mobile-menu a").forEach((a) => {
+  // Only the top-level nav links (Home / About / Work / Contact) should ever
+  // get the "active" pill style. ".nav-links > a" and ".mobile-menu > ul > li > a"
+  // deliberately skip anchors nested inside a ".dropdown-menu", so opening
+  // Services/Projects while on work.html no longer turns those submenu
+  // items into big purple pill buttons.
+  document.querySelectorAll(".nav-links > a, .mobile-menu > ul > li > a").forEach((a) => {
     const href = a.getAttribute("href");
     if (href === path || (path === "" && href === "index.html")) {
       a.classList.add("active");
@@ -206,11 +268,12 @@ function initProjectFilter() {
   });
 }
 
-/* ---------- Contact form validation ---------- */
+/* ---------- Contact form validation + real submission via Formspree ---------- */
 function initContactForm() {
   const form = document.getElementById("contact-form");
   if (!form) return;
   const success = document.getElementById("form-success");
+  const errorMsg = document.getElementById("form-error");
 
   const validators = {
     name: (v) => v.trim().length >= 2 || "Please enter your full name.",
@@ -236,6 +299,11 @@ function initContactForm() {
     }
   }
 
+  function hideBanners() {
+    success.classList.remove("show");
+    errorMsg.classList.remove("show");
+  }
+
   form.querySelectorAll("input, textarea").forEach((input) => {
     input.addEventListener("blur", () => validateField(input));
     input.addEventListener("input", () => {
@@ -245,6 +313,8 @@ function initContactForm() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    hideBanners();
+
     const inputs = form.querySelectorAll("input, textarea");
     let valid = true;
     inputs.forEach((input) => {
@@ -262,35 +332,32 @@ function initContactForm() {
     submitBtn.textContent = "Sending…";
     submitBtn.disabled = true;
 
-    setTimeout(() => {
-      form.reset();
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-      success.classList.add("show");
-      success.setAttribute("role", "status");
-      success.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      setTimeout(() => success.classList.remove("show"), 6000);
-    }, 900);
+    // Real submission: POST the form data straight to Formspree, which
+    // forwards it to your inbox. No page reload, no mailto popup.
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (response.ok) {
+          form.reset();
+          success.classList.add("show");
+          success.setAttribute("role", "status");
+          success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          setTimeout(() => success.classList.remove("show"), 6000);
+        } else {
+          throw new Error("Formspree responded with an error");
+        }
+      })
+      .catch(() => {
+        errorMsg.classList.add("show");
+        errorMsg.setAttribute("role", "status");
+        errorMsg.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
   });
-
-  function sendEmail(event) {
-    event.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const subject = document.getElementById("subject").value;
-    const message = document.getElementById("message").value;
-
-    const body =
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n\n" +
-        message;
-
-    const mailto =
-        "mailto: mj300635@gmail.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-    window.location.href = mailto;
-}
 }

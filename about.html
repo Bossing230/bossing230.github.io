@@ -21,6 +21,31 @@
     <nav class="nav-links" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
+
+      <!-- Dropdown 1: Services -->
+      <div class="dropdown">
+        <button class="dropdown-toggle" id="servicesBtn" aria-haspopup="true" aria-expanded="false">
+          Services <span class="caret">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="servicesMenu">
+          <li><a href="work.html">Web Development</a></li>
+          <li><a href="work.html">Mobile Development</a></li>
+          <li><a href="work.html">UI/UX Design</a></li>
+        </ul>
+      </div>
+
+      <!-- Dropdown 2: Projects (Bonus 3 - multiple independent dropdowns) -->
+      <div class="dropdown">
+        <button class="dropdown-toggle" id="projectsBtn" aria-haspopup="true" aria-expanded="false">
+          Projects <span class="caret">▼</span>
+        </button>
+        <ul class="dropdown-menu" id="projectsMenu">
+          <li><a href="work.html">Restaurant Management System</a></li>
+          <li><a href="work.html">Food Delivery Application</a></li>
+          <li><a href="work.html">Personal Portfolio Website</a></li>
+        </ul>
+      </div>
+
       <a href="work.html">Work</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -36,6 +61,31 @@
   <ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
+
+    <!-- Dropdown 1: Services (mobile accordion version) -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="servicesBtnMobile" aria-haspopup="true" aria-expanded="false">
+        Services <span class="caret">▼</span>
+      </button>
+      <ul class="dropdown-menu" id="servicesMenuMobile">
+        <li><a href="work.html">Web Development</a></li>
+        <li><a href="work.html">Mobile Development</a></li>
+        <li><a href="work.html">UI/UX Design</a></li>
+      </ul>
+    </li>
+
+    <!-- Dropdown 2: Projects (mobile accordion version) -->
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="projectsBtnMobile" aria-haspopup="true" aria-expanded="false">
+        Projects <span class="caret">▼</span>
+      </button>
+      <ul class="dropdown-menu" id="projectsMenuMobile">
+        <li><a href="work.html">Restaurant Management System</a></li>
+        <li><a href="work.html">Food Delivery Application</a></li>
+        <li><a href="work.html">Personal Portfolio Website</a></li>
+      </ul>
+    </li>
+
     <li><a href="work.html">Work</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -72,7 +122,7 @@
 
           <p>
             I'm an Computer Science student who genuinely enjoys the process of turning a
-            blank screen into something people can actually use — a form that validates itself,
+            blank screen into something people can actually use a form that validates itself,
             a dashboard that finally makes sense of messy data, an app that feels quick and calm
             to use. That satisfaction is what pulled me from "interested in computers" to
             <strong>building software on purpose</strong>.
@@ -86,7 +136,7 @@
           <p>
             Looking ahead, my goal is to grow into a <strong>full-stack developer</strong> who's
             equally comfortable designing a clean interface and structuring the database behind
-            it — and eventually contribute to products used by real people, not just graded by
+            it  and eventually contribute to products used by real people, not just graded by
             a rubric.
           </p>
           <p>
@@ -170,7 +220,7 @@
               <div class="tl-item">
                 <p class="tl-year">2025</p>
                 <h4>Started building web &amp; mobile applications</h4>
-                <p>Moved from tutorials to independent builds — first static sites, then interactive apps.</p>
+                <p>Moved from tutorials to independent builds first static sites, then interactive apps.</p>
               </div>
               <div class="tl-item">
                 <p class="tl-year">2026</p>
