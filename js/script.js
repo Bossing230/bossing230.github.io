@@ -30,7 +30,14 @@ function initNav() {
 function initMobileMenu() {
   const toggle = document.querySelector(".nav-toggle");
   const menu = document.querySelector(".mobile-menu");
+  const closeBtn = document.querySelector(".mobile-menu-close");
   if (!toggle || !menu) return;
+
+  function closeMenu() {
+    toggle.classList.remove("open");
+    menu.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+  }
 
   toggle.addEventListener("click", () => {
     const isOpen = toggle.classList.toggle("open");
@@ -38,12 +45,15 @@ function initMobileMenu() {
     toggle.setAttribute("aria-expanded", String(isOpen));
   });
 
+  // The explicit X button inside the sidebar — needed because the
+  // hamburger button sits underneath the open sidebar (different
+  // stacking context) and isn't reachable once the menu is open.
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeMenu);
+  }
+
   menu.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      toggle.classList.remove("open");
-      menu.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-    });
+    link.addEventListener("click", closeMenu);
   });
 }
 
