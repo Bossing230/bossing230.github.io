@@ -95,8 +95,8 @@ export const PROJECTS = [
       "A responsive personal portfolio showcasing my skills, projects, and experience the very site you're looking at now.",
     tech: ["HTML", "CSS", "JavaScript"],
     filters: ["web"],
-    demo: "https://Bossing230.github.io/Personal-Portfolio",
-    github: "https://github.com/Bossing230/Personal-Portfolio",
+    demo: "https://bossing230.github.io/",
+    github: "https://github.com/Bossing230/bossing230.github.io",
   },
 ];
 
